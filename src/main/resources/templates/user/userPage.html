@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>유저 페이지</title>
-</head>
-<body>
-	<p>반갑습니다</p>
-</body>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/default_layout}">
+	
+<div layout:fragment="content">
+	<h1 th:if="${user != null}"><span th:text="${user.username}"></span>님의 마이페이지</h1>
+</div>
 </html>

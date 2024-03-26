@@ -21,7 +21,7 @@ public class UserPrincipalDetailsService implements UserDetailsService {
 		User user = userRepository.findByUsername(username);
 		System.out.println("Username : " + username);
 		if (user == null)
-			throw new UsernameNotFoundException(username + " 존재하지 않습니다");
+			throw new UsernameNotFoundException("NoExist");
 
 		return new UserPrincipalDetails(user);
 	}

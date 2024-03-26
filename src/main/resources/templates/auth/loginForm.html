@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default_layout}">
+
+<div layout:fragment="content">
+	<h1>로그인</h1>
+	<form onsubmit="handleSubmit(event, this)">
+		<div>
+			<label for="username">UserName</label> <input type="text" name="username" id="username" required>
+		</div>
+		<div>
+			<label for="password">Password</label> <input type="password" name="password" id="password" required autocomplete="none">
+		</div>
+		<div>
+			<button type="submit">로그인</button>
+		</div>
+	</form>
+	<script type="text/javascript">
+		const handleSubmit = (e, f) =>{
+			e.preventDefault();
+			let body = {
+				username : f.username.value,
+				password : f.password.value
+			}			
+			
+			fetch('/auth/login-proc', {method : "post", body : new URLSearchParams(body)})
+			.then((res)=>res.text())
+			.then((data)=>{
+				switch(data){
+				case 'success':
+					location.href="/"
+					break
+				case 'NoExist' :
+					alert('계정이 존재하지 않습니다.')
+					break;
+				case 'pwdFail' :
+					alert('비밀번호가 틀렸습니다.')
+					break;
+				default :
+					alert('예상치 못한 오류 발생')
+					break;
+				}
+			})
+		}
+	</script>
+</div>
+
+</html>

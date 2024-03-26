@@ -3,18 +3,23 @@ package com.vanillwa.sbp.auth;
 import java.io.IOException;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class UserAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
-	public void onAuthSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
-			throws IOException, ServletException {
+@Component
+public class UserAuthSuccessHandler implements AuthenticationSuccessHandler {
 
-		setDefaultTargetUrl("/");
-
-		super.onAuthenticationSuccess(request, response, authentication);
+	@Override
+	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+			Authentication authentication) throws IOException, ServletException {
+		response.setHeader("success", "true");
+		response.setContentType("application/json");
+		response.getWriter().write("success");
 	}
+
 }

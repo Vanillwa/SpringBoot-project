@@ -11,6 +11,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import com.vanillwa.sbp.auth.UserAuthFailureHandler;
 import com.vanillwa.sbp.auth.UserAuthProvider;
+import com.vanillwa.sbp.auth.UserAuthSuccessHandler;
 import com.vanillwa.sbp.auth.UserPrincipalDetailsService;
 
 import lombok.RequiredArgsConstructor;
@@ -22,24 +23,21 @@ public class SecurityConfig {
 
 	final UserAuthProvider userAuthProvider;
 	final UserPrincipalDetailsService userPrincipalDetailsService;
-
-	public final void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.authenticationProvider(userAuthProvider);
-	}
+	final UserAuthSuccessHandler userAuthSuccessHandler;
+	final UserAuthFailureHandler userAuthFailureHandler;
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf((csrf) -> csrf.disable()).headers((headers) -> headers.frameOptions((options) -> options.disable()))
 				.authorizeHttpRequests(
-						(auth) -> auth.requestMatchers("/css/**", "/images/**", "/js/**", "/login/**", "/").permitAll()
-								.anyRequest().authenticated())
-				.formLogin((formLogin) -> formLogin.loginPage("/login/loginForm").usernameParameter("username")
-						.passwordParameter("password").loginProcessingUrl("/login/login-proc")
-						.defaultSuccessUrl("/user/userPage", true).failureHandler(new UserAuthFailureHandler())
-						.permitAll())
-				.logout((logout) -> logout.logoutUrl("/login/logout").logoutSuccessUrl("/").deleteCookies("JSESSIONID"))
+						(request) -> request.requestMatchers("/css/**", "/images/**", "/js/**", "/auth/**", "/")
+								.permitAll().anyRequest().authenticated())
+				.formLogin((formLogin) -> formLogin.loginPage("/auth/loginForm").usernameParameter("username")
+						.passwordParameter("password").loginProcessingUrl("/auth/login-proc")
+						.successHandler(userAuthSuccessHandler).failureHandler(userAuthFailureHandler).permitAll())
+				.logout((logout) -> logout.logoutUrl("/auth/logout").logoutSuccessUrl("/").deleteCookies("JSESSIONID"))
 				.userDetailsService(userPrincipalDetailsService);
-		
+
 		return http.build();
 	}
 
