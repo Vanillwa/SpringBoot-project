@@ -1,4 +1,4 @@
-package com.vanillwa.sbp.auth;
+package com.vanillwa.sbp.auth.handler;
 
 import java.io.IOException;
 

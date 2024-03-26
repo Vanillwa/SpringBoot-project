@@ -16,8 +16,8 @@ public class HomeController {
 	
 	private final HttpSession session;
 	
-	@GetMapping("/")
-	public String index(Model model, @AuthenticationPrincipal UserPrincipalDetails user) {
+	@GetMapping(value = {"/", ""})
+	public String index(Model model, @AuthenticationPrincipal UserPrincipalDetails user) {	
 		model.addAttribute("user", user);
 		return "index";
 	}

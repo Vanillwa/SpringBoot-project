@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(value = "/auth")
-public class LoginController {
+public class AuthController {
 	private final UserRepository userRepository;
 	private final UserService userService;
 	private final HttpSession session;
@@ -32,7 +32,8 @@ public class LoginController {
 	public String signupForm() {
 		return "/auth/signupForm";
 	}
-
+	
+	// username 중복 체크
 	@ResponseBody
 	@PostMapping("/checkUsernameDuplication")
 	public ResponseEntity<Boolean> checkUsernameDuplication(@RequestBody UserDTO userDTO) {
@@ -40,7 +41,9 @@ public class LoginController {
 		session.setAttribute("checkUsernameDuplication", check);
 		return ResponseEntity.ok(check);
 	}
-
+	
+	
+	// 회원 가입
 	@ResponseBody
 	@PostMapping("/createUser")
 	public ResponseEntity<String> createUser(@RequestBody UserDTO userDTO) {

@@ -9,10 +9,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.vanillwa.sbp.auth.UserAuthFailureHandler;
 import com.vanillwa.sbp.auth.UserAuthProvider;
-import com.vanillwa.sbp.auth.UserAuthSuccessHandler;
 import com.vanillwa.sbp.auth.UserPrincipalDetailsService;
+import com.vanillwa.sbp.auth.handler.UserAccessDeniedHandler;
+import com.vanillwa.sbp.auth.handler.UserAuthFailureHandler;
+import com.vanillwa.sbp.auth.handler.UserAuthSuccessHandler;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,18 +26,19 @@ public class SecurityConfig {
 	final UserPrincipalDetailsService userPrincipalDetailsService;
 	final UserAuthSuccessHandler userAuthSuccessHandler;
 	final UserAuthFailureHandler userAuthFailureHandler;
-
+	final UserAccessDeniedHandler userAccessDeniedHandler;
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf((csrf) -> csrf.disable()).headers((headers) -> headers.frameOptions((options) -> options.disable()))
 				.authorizeHttpRequests(
-						(request) -> request.requestMatchers("/css/**", "/images/**", "/js/**", "/auth/**", "/")
+						(request) -> request.requestMatchers("/css/**", "/images/**", "/js/**", "/auth/**", "/", "/posts/**", "/error")
 								.permitAll().anyRequest().authenticated())
 				.formLogin((formLogin) -> formLogin.loginPage("/auth/loginForm").usernameParameter("username")
 						.passwordParameter("password").loginProcessingUrl("/auth/login-proc")
 						.successHandler(userAuthSuccessHandler).failureHandler(userAuthFailureHandler).permitAll())
 				.logout((logout) -> logout.logoutUrl("/auth/logout").logoutSuccessUrl("/").deleteCookies("JSESSIONID"))
-				.userDetailsService(userPrincipalDetailsService);
+				.userDetailsService(userPrincipalDetailsService)
+				.exceptionHandling(exception->exception.accessDeniedHandler(userAccessDeniedHandler));
 
 		return http.build();
 	}
