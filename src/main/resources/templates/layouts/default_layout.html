@@ -10,15 +10,11 @@
 <th:block layout:fragment="css"></th:block>
 <th:block layout:fragment="script"></th:block>
 </head>
-<body class="dark">
+<body class="">
 	<header th:replace="~{fragments/header::header}"></header>
-	<div class="container main-container" style="max-width: 1000px; min-width: 320px; border-left:1px solid lightgray;">
+	<div class="container main-container">
 		<th:block layout:fragment="content"></th:block>
 	</div>
 </body>
-<script type="text/javascript">
-	const handleDarkmode = ()=>{
-		$('body').toggleClass('dark').toggleClass('light');
-	}
-</script>
+<script src="/js/main.js"></script>
 </html>

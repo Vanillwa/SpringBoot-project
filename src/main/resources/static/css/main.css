@@ -3,7 +3,9 @@ body[class='light'] {
 	--bg-color-container: whitesmoke;
 	--bg-color-table: whitesmoke;
 	--font-color: black;
+	--font-color-sub : gray;
 	--border-color-table: lightgray;
+	--border-color-container : lightgray;
 }
 
 body[class='dark'] {
@@ -11,7 +13,9 @@ body[class='dark'] {
 	--bg-color-container: #222;
 	--bg-color-table: #333;
 	--font-color: white;
+	--font-color-sub : gray;
 	--border-color-table: #555;
+	--border-color-container : #444;
 }
 
 body {
@@ -20,5 +24,23 @@ body {
 }
 
 .main-container {
+	max-width: 1000px;
+	min-width: 320px;
+	background-color: var(--bg-color-container);
+	border: 1px solid var(--border-color-container);
+	border-top:none;
+}
+
+.navbar {
+	border-bottom: 1px solid var(--border-color-container);
 	background-color: var(--bg-color-container) !important;
 }
+
+#theme-toggle-btn{float:right;}
+
+
+
+
+
+
+

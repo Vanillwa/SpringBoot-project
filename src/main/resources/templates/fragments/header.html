@@ -16,11 +16,11 @@
 					<li class="nav-item" th:if="${user != null}"><a class="nav-link" href="/user/userPage">Mypage</a></li>
 					<li class="nav-item" th:if="${user != null}"><a class="nav-link" href="/auth/logout">Logout</a></li>
 				</ul>
+				<button type="button" id="theme-toggle-btn">다크모드</button>
 			</div>
+			
 		</div>
-		<div>
-			<button type="button" onclick="handleDarkmode()">다크모드</button>
-		</div>
+
 	</nav>
 </header>
 </html>
