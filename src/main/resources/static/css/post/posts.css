@@ -1,0 +1,33 @@
+@import url('../main.css');
+
+.section {
+	width: 100%;
+	margin: 0 auto;
+	padding: 24px 0 0;
+}
+
+.section .bar {
+	display: flex;
+	justify-content: flex-end;
+	padding: 5px 0;
+}
+
+.table {
+	border-top: 1px solid var(--border-color-table);
+	background-color: var(--bg-color-table);
+}
+
+.table td, .table th {
+	text-align: center;
+	background-color: var(--bg-color-table);
+	color: var(--font-color);
+	border-color: var(--border-color-table);
+}
+
+.table .post_id, .post_title {
+	cursor: pointer;
+}
+
+.table .post_title {
+	text-align: left;
+}

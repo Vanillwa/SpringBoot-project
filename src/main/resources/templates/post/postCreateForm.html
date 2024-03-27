@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default_layout}">
+<th:block layout:fragment="css">
+	<link rel="stylesheet" href="/css/post/postCreateForm.css" />
+</th:block>
+<th:block layout:fragment="script">
+	<script src="/js/post/postCreateForm.js"></script>
+</th:block>
+<div layout:fragment="content">
+	<section>
+		<form class="createForm" onsubmit="handleSubmit(event, this)">
+			<div>
+				<input type="text" name="title" id="title" class="title" placeholder="제목" required />
+			</div>
+			<div>
+				<textarea rows="1" cols="1" name="content" id="content" class="content" placeholder="내용" required></textarea>
+			</div>
+			<div>
+				<button type="submit">작성하기</button>
+				<button type="button" onclick="history.back()">돌아가기</button>
+			</div>
+		</form>
+	</section>
+	<script>
+		const user_id = [[${ user.user.user_id }]];
+	</script>
+</div>
+</html>

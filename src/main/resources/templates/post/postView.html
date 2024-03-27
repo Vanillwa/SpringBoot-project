@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default_layout}">
+<th:block layout:fragment="css">
+	<link rel="stylesheet" href="/css/post/postView.css" />
+</th:block>
+<div layout:fragment="content">
+	<th:block th:if="${post} != null">
+		<section class="section">
+			<div class="post-view">
+				<div class="title">
+					<th:block th:text="${post.title}"></th:block>
+				</div>
+				<div class="content">
+					<th:block th:text="${post.content}"></th:block>
+				</div>
+			</div>
+		</section>
+	</th:block>
+	<th:block th:unless="${post} != null">
+		<div>
+			해당 글이 존재하지 않습니다.
+		</div>
+	</th:block>
+</div>
+</html>

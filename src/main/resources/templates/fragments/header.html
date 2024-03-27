@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <header th:fragment="header">
 	<nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
-		<div class="container">
+		<div class="container header-container">
 			<a class="navbar-brand" href="#">Spring Boot</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
@@ -17,6 +17,9 @@
 					<li class="nav-item" th:if="${user != null}"><a class="nav-link" href="/auth/logout">Logout</a></li>
 				</ul>
 			</div>
+		</div>
+		<div>
+			<button type="button" onclick="handleDarkmode()">다크모드</button>
 		</div>
 	</nav>
 </header>

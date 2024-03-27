@@ -12,6 +12,8 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,22 +25,19 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@Table(name = "users")
+@Table(name = "posts")
 @EntityListeners(AuditingEntityListener.class)
-public class User {
+public class Post {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(nullable = false, updatable = false)
-	private Long user_id;
-	
-	@Column(nullable = false, unique = true)
-	private String username;
+	private Long post_id;
 	
 	@Column(nullable = false)
-	private String password;
+	private String title;
 	
 	@Column(nullable = false)
-	private String role = "USER";
+	private String content;
 	
 	@CreatedDate
 	@Column(nullable = false, updatable = false)
@@ -47,4 +46,12 @@ public class User {
 	@LastModifiedDate
 	@Column(nullable = false)
 	private LocalDateTime updatedAt;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id", referencedColumnName = "user_id", updatable = false)
+	private User user = new User();
+	
+	public void setUserId(Long user_id) {
+		user.setUser_id(user_id);
+	}
 }

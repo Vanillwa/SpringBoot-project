@@ -1,0 +1,10 @@
+.section{padding:24px 0 0;}
+.section .post-view{border-top:1px solid lightgray;}
+
+.section .post-view .title{padding:12px; border-bottom:1px solid lightgray;}
+.section .post-view .content{padding:12px; min-height:300px; border-bottom:1px solid lightgray;}
+
+
+
+
+

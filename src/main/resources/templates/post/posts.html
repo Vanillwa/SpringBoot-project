@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default_layout}">
+<th:block layout:fragment="css">
+	<link rel="stylesheet" href="/css/post/posts.css" />
+</th:block>
+<div layout:fragment="content">
+	<section class="section">
+		<div class="bar">
+			<button type="button" class="btn btn-secondary btn-sm" onclick="location.href='/posts/create'">글 작성하기</button>
+		</div>
+
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th scope="col" class="col-2">글번호</th>
+					<th scope="col" class="col-5">제목</th>
+					<th scope="col" class="col-2">작성자</th>
+					<th scope="col" class="col-3">작성일</th>
+				</tr>
+			</thead>
+			<tbody>
+				<th:block th:each="post : ${postList}">
+					<tr>
+						<td class="post_id" th:text="${post.post_id}" th:onclick="location.href='/posts/'+[[${post.post_id}]]"></td>
+						<td class="post_title" th:text="${post.title}" th:onclick="location.href='/posts/'+[[${post.post_id}]]"></td>
+						<td th:text="${post.user.username}"></td>
+						<td th:text="${#temporals.format(post.createAt, 'MM-dd HH:mm')}"></td>
+					</tr>
+				</th:block>
+			</tbody>
+		</table>
+	</section>
+</div>
+</html>
