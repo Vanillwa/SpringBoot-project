@@ -27,26 +27,27 @@ public class PostController {
 	public String index(Model model, @AuthenticationPrincipal UserPrincipalDetails user) {
 		List<Post> list = postRepository.findAll();
 		model.addAttribute("postList", list);
-		model.addAttribute("user", user);
+		
+		if(user != null)
+			model.addAttribute("user", user.getUser());
 		return "/post/posts";
 	}
 
 	@GetMapping("/create")
 	public String postCreateForm(Model model, @AuthenticationPrincipal UserPrincipalDetails user) {
 
-		model.addAttribute("user", user);
+		model.addAttribute("user", user.getUser());
 		return "/post/postCreateForm";
 	}
 
 	@GetMapping("/{post_id}")
 	public String postView(Model model, @PathVariable(name = "post_id") Long post_id,
 			@AuthenticationPrincipal UserPrincipalDetails user) {
-
 		Optional<Post> post = postRepository.findById(post_id);
 		if (post.isPresent())
 			model.addAttribute("post", post.get());
-
-		model.addAttribute("user", user);
+		if(user != null)
+			model.addAttribute("user", user.getUser());
 		return "/post/postView";
 	}
 }

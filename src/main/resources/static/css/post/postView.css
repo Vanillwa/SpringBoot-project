@@ -1,10 +1,11 @@
-.section{padding:24px 0 0;}
-.section .post-view{border-top:1px solid lightgray;}
+.section{padding:24px 0;}
+.section .post-view{border-top:1px solid var(--border-color-table);}
 
-.section .post-view .title{padding:12px; border-bottom:1px solid lightgray;}
-.section .post-view .content{padding:12px; min-height:300px; border-bottom:1px solid lightgray;}
+.section .post-view .title{padding:12px; border-bottom:1px solid var(--border-color-table);}
+.section .post-view .content{padding:12px; min-height:300px; border-bottom:1px solid var(--border-color-table);}
+.section .post-view .info{padding: 12px; display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color-table)}
 
-
+.section .error{padding:12px; text-align: center;}
 
 
 

@@ -5,6 +5,6 @@
 	
 <div layout:fragment="content">
 	<h1 th:if="${user != null}"><span th:text="${user.username}"></span>님의 마이페이지</h1>
-	<p>유저 권한 : <th:block th:text="${user.getAuthorities[0]}"></th:block></p>
+	<p>유저 권한 : <th:block th:text="${user.role}"></th:block></p>
 </div>
 </html>

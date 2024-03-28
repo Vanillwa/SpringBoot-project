@@ -2,6 +2,7 @@ body[class='light'] {
 	--bg-color-body: white;
 	--bg-color-container: whitesmoke;
 	--bg-color-table: whitesmoke;
+	--bg-color-table-hover: #fff;
 	--font-color: black;
 	--font-color-sub : gray;
 	--border-color-table: lightgray;
@@ -11,7 +12,8 @@ body[class='light'] {
 body[class='dark'] {
 	--bg-color-body: #111;
 	--bg-color-container: #222;
-	--bg-color-table: #333;
+	--bg-color-table: #222;
+	--bg-color-table-hover : #333;
 	--font-color: white;
 	--font-color-sub : gray;
 	--border-color-table: #555;
@@ -35,11 +37,13 @@ body {
 	border-bottom: 1px solid var(--border-color-container);
 	background-color: var(--bg-color-container) !important;
 }
+.navbar .nav-item .nav-link{transition:none;}
 
-#theme-toggle-btn{float:right;}
+#navbarNavDropdown{justify-content: space-between;}
 
-
-
+.form-check.form-switch{display: flex; justify-content:flex-end; flex-direction: row; align-items: center; gap:7px;}
+.form-check-label{display: block;}
+.form-check-input{display: block; margin:0 !important;}
 
 
 

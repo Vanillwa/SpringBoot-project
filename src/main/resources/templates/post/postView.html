@@ -4,8 +4,8 @@
 	<link rel="stylesheet" href="/css/post/postView.css" />
 </th:block>
 <div layout:fragment="content">
-	<th:block th:if="${post} != null">
-		<section class="section">
+	<section class="section">
+		<th:block th:if="${post} != null">
 			<div class="post-view">
 				<div class="title">
 					<th:block th:text="${post.title}"></th:block>
@@ -13,13 +13,21 @@
 				<div class="content">
 					<th:block th:text="${post.content}"></th:block>
 				</div>
+				<div class="info">
+					<div class="writer">
+						작성자 :
+						<th:block th:text="${post.user.username}"></th:block>
+					</div>
+					<div class="createdAt">
+						작성일 :
+						<th:block th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></th:block>
+					</div>
+				</div>
 			</div>
-		</section>
-	</th:block>
-	<th:block th:unless="${post} != null">
-		<div>
-			해당 글이 존재하지 않습니다.
-		</div>
-	</th:block>
+		</th:block>
+		<th:block th:unless="${post} != null">
+			<div class="error">해당 글이 존재하지 않습니다.</div>
+		</th:block>
+	</section>
 </div>
 </html>

@@ -1,9 +1,7 @@
-@import url('../main.css');
-
 .section {
 	width: 100%;
 	margin: 0 auto;
-	padding: 24px 0 0;
+	padding: 24px 0;
 }
 
 .section .bar {
@@ -17,14 +15,21 @@
 	background-color: var(--bg-color-table);
 }
 
-.table td, .table th {
-	text-align: center;
-	background-color: var(--bg-color-table);
-	color: var(--font-color);
+.table tr {
 	border-color: var(--border-color-table);
 }
 
-.table .post_id, .post_title {
+.table tbody tr:hover {
+	background-color: var(--bg-color-table-hover);
+}
+
+.table td, .table th {
+	text-align: center;
+	background-color: transparent !important;
+	color: var(--font-color);
+}
+
+.table .post_id, .table .post_title {
 	cursor: pointer;
 }
 

@@ -4,9 +4,9 @@ const handleSubmit = (e, f) => {
 	let body = {
 		title: f.title.value,
 		content: f.content.value,
-		user_id
+		user_id : $('#user_id').val()
 	}
-	console.log(body);
+
 	fetch('/api/post', { method: "post", body: JSON.stringify(body), headers: { 'Content-Type': 'application/json' } })
 		.then((res) => res.text())
 		.then((text) => {

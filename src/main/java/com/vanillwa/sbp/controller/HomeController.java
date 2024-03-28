@@ -18,13 +18,15 @@ public class HomeController {
 	
 	@GetMapping(value = {"/", ""})
 	public String index(Model model, @AuthenticationPrincipal UserPrincipalDetails user) {	
-		model.addAttribute("user", user);
+		if(user != null)
+			model.addAttribute("user", user.getUser());
 		return "index";
 	}
 	
-	@GetMapping("/user/userPage")
+	@GetMapping("/user/myPage")
 	public String userPage(Model model, @AuthenticationPrincipal UserPrincipalDetails user ) {
-		model.addAttribute("user", user);
-		return "/user/userPage";
+		if(user != null)
+			model.addAttribute("user", user.getUser());
+		return "/user/myPage";
 	}
 }

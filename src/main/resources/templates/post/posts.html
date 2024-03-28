@@ -6,7 +6,7 @@
 <div layout:fragment="content">
 	<section class="section">
 		<div class="bar">
-			<button type="button" class="btn btn-secondary btn-sm" onclick="location.href='/posts/create'">글 작성하기</button>
+			<button type="button" class="btn btn-secondary btn-sm" onclick="location.href='/posts/create'">작성하기</button>
 		</div>
 
 		<table class="table table-hover">
@@ -19,12 +19,17 @@
 				</tr>
 			</thead>
 			<tbody>
+				<th:block th:if="${postList.size} == 0">
+					<tr>
+						<td colspan="4">작성된 게시글이 없습니다.</td>
+					</tr>
+				</th:block>
 				<th:block th:each="post : ${postList}">
 					<tr>
 						<td class="post_id" th:text="${post.post_id}" th:onclick="location.href='/posts/'+[[${post.post_id}]]"></td>
 						<td class="post_title" th:text="${post.title}" th:onclick="location.href='/posts/'+[[${post.post_id}]]"></td>
 						<td th:text="${post.user.username}"></td>
-						<td th:text="${#temporals.format(post.createAt, 'MM-dd HH:mm')}"></td>
+						<td th:text="${#temporals.format(post.createdAt, 'MM-dd HH:mm')}"></td>
 					</tr>
 				</th:block>
 			</tbody>

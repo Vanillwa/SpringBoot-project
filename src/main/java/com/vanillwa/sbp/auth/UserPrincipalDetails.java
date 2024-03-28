@@ -12,10 +12,14 @@ import com.vanillwa.sbp.domain.User;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @SuppressWarnings("serial")
 @RequiredArgsConstructor
 @Getter
+@Setter
+@ToString
 public class UserPrincipalDetails implements UserDetails {
 	
 	private final User user;
