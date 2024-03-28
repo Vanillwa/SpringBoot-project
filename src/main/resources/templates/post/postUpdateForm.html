@@ -4,22 +4,25 @@
 	<link rel="stylesheet" href="/css/post/postCreateForm.css" />
 </th:block>
 <th:block layout:fragment="script">
-	<script src="/js/post/postCreateForm.js"></script>
+	<script src="/js/post/postUpdateForm.js"></script>
 </th:block>
 <div layout:fragment="content">
 	<section class="section">
 		<form class="createForm" onsubmit="handleSubmit(event, this)">
 			<div>
-				<input type="text" name="title" id="title" class="title" placeholder="제목" required />
+				<input type="text" name="title" id="title" class="title" placeholder="제목" th:value="${post.title}" required />
 			</div>
 			<div>
-				<textarea rows="1" cols="1" name="content" id="content" class="content" placeholder="내용" required></textarea>
+				<textarea rows="1" cols="1" name="content" id="content" class="content" placeholder="내용" th:text="${post.content}" required></textarea>
 			</div>
-			<div class="btn-wrapper">	
+			<div class="btn-wrapper">
 				<button type="button" class="btn btn-danger btn-sm" onclick="handleCancle()">돌아가기</button>
 				<button type="submit" class="btn btn-secondary btn-sm">작성하기</button>
 			</div>
 		</form>
 	</section>
+	<script th:inline="javascript">
+		const post_id = [[${post.post_id}]];
+	</script>
 </div>
 </html>

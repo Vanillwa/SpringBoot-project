@@ -2,11 +2,12 @@ const handleSubmit = (e, f) => {
 	e.preventDefault();
 	
 	let body = {
+		post_id,
 		title: f.title.value,
-		content: f.content.value
+		content: f.content.value,
 	}
 
-	fetch('/api/post', { method: "post", body: JSON.stringify(body), headers: { 'Content-Type': 'application/json' } })
+	fetch('/api/post', { method: "put", body: JSON.stringify(body), headers: { 'Content-Type': 'application/json' } })
 		.then((res) => res.text())
 		.then((text) => {
 			if (text == '') {
@@ -14,7 +15,7 @@ const handleSubmit = (e, f) => {
 				return;
 			}
 
-			location.href = '/posts'
+			location.href = `/posts/${post_id}`
 		})
 }
 

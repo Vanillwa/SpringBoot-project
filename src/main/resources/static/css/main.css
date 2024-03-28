@@ -3,8 +3,10 @@ body[class='light'] {
 	--bg-color-container: whitesmoke;
 	--bg-color-table: whitesmoke;
 	--bg-color-table-hover: #fff;
+	--bg-color-input: white;
 	--font-color: black;
 	--font-color-sub : gray;
+	--font-color-placeholder: gray;
 	--border-color-table: lightgray;
 	--border-color-container : lightgray;
 }
@@ -14,8 +16,10 @@ body[class='dark'] {
 	--bg-color-container: #222;
 	--bg-color-table: #222;
 	--bg-color-table-hover : #333;
+	--bg-color-input: #555;
 	--font-color: white;
 	--font-color-sub : gray;
+	--font-color-placeholder: lightgray;
 	--border-color-table: #555;
 	--border-color-container : #444;
 }

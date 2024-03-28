@@ -12,19 +12,18 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
 	final UserRepository userRepository;
 
-	@Transactional
 	@Override
 	public boolean checkUsernameDuplication(String username) {
 		boolean usernameDuplicate = userRepository.existsByUsername(username);
 		return usernameDuplicate;
 	}
 
-	@Transactional
 	@Override
 	public void createUser(UserDTO userDTO) {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();

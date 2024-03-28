@@ -3,6 +3,9 @@
 <th:block layout:fragment="css">
 	<link rel="stylesheet" href="/css/post/postView.css" />
 </th:block>
+<th:block layout:fragment="script">
+	<script src="/js/post/postView.js"></script>
+</th:block>
 <div layout:fragment="content">
 	<section class="section">
 		<th:block th:if="${post} != null">
@@ -11,7 +14,7 @@
 					<th:block th:text="${post.title}"></th:block>
 				</div>
 				<div class="content">
-					<th:block th:text="${post.content}"></th:block>
+					<th:block th:utext="${post.content}"></th:block>
 				</div>
 				<div class="info">
 					<div class="writer">
@@ -23,11 +26,20 @@
 						<th:block th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></th:block>
 					</div>
 				</div>
+				<th:block th:if="${user != null && (user.user_id == post.user.user_id || user.role == 'ADMIN')}">
+					<div class="btn-wrapper">
+						<button type="button" class="btn btn-danger btn-sm" onclick="handleDelete()">삭제하기</button>
+						<button type="button" class="btn btn-secondary btn-sm" onclick="handleUpdateForm()">수정하기</button>
+					</div>
+				</th:block>
 			</div>
 		</th:block>
 		<th:block th:unless="${post} != null">
 			<div class="error">해당 글이 존재하지 않습니다.</div>
 		</th:block>
 	</section>
+	<script th:inline="javascript">
+		const post_id = [[${post.post_id}]];
+	</script>
 </div>
 </html>

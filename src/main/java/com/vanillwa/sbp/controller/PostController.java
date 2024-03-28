@@ -27,8 +27,8 @@ public class PostController {
 	public String index(Model model, @AuthenticationPrincipal UserPrincipalDetails user) {
 		List<Post> list = postRepository.findAll();
 		model.addAttribute("postList", list);
-		
-		if(user != null)
+
+		if (user != null)
 			model.addAttribute("user", user.getUser());
 		return "/post/posts";
 	}
@@ -44,10 +44,29 @@ public class PostController {
 	public String postView(Model model, @PathVariable(name = "post_id") Long post_id,
 			@AuthenticationPrincipal UserPrincipalDetails user) {
 		Optional<Post> post = postRepository.findById(post_id);
-		if (post.isPresent())
+		if (post.isPresent()) {
 			model.addAttribute("post", post.get());
-		if(user != null)
+		}		
+		if (user != null)
 			model.addAttribute("user", user.getUser());
 		return "/post/postView";
+	}
+
+	@GetMapping("/{post_id}/update")
+	public String postUpdateForm(Model model, @PathVariable(name = "post_id") Long post_id,
+			@AuthenticationPrincipal UserPrincipalDetails user) {
+		Optional<Post> post = postRepository.findById(post_id);
+		
+		if(!post.isPresent() || post.get().getUser().getUser_id() != user.getUser().getUser_id()) {
+			model.addAttribute("message", "잘못된 접근입니다.");
+			return "/common/alertRedirect";
+		}
+		
+		if (post.isPresent())
+			model.addAttribute("post", post.get());
+		if (user != null)
+			model.addAttribute("user", user.getUser());
+		
+		return "/post/postUpdateForm";
 	}
 }
