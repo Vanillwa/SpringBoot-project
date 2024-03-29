@@ -5,7 +5,7 @@
 	<h1>회원가입</h1>
 	<form onsubmit="handleSubmit(event, this)">
 		<div>
-			<label for="username">UserName</label> <input type="text" name="username" id="username" required oninput="handleUsernameOnchange()">
+			<label for="username">UserName</label> <input type="text" name="username" id="username" required onchange="handleUsernameOnchange()">
 			<button type="button" onclick="handleCheckDuplication()">중복 체크</button>
 		</div>
 		<div id="username-alert"></div>
@@ -20,31 +20,38 @@
 		
 		const handleUsernameOnchange = ()=>{
 			$('#username-alert').text('');
+			fetch('/api/auth/usernameOnchange',{method : "get"})
 		}
 	
-	
 		const handleCheckDuplication = () =>{
-			let body = {
-					username : $('#username').val()
+			let username = $('#username').val()
+			if(username == ''){
+				$('#username-alert').text('username이 비어있습니다.')
+				return
 			}
-			console.log(body);
-			fetch('/auth/checkUsernameDuplication', {method : 'post', body : JSON.stringify(body), headers : {'Content-Type' : 'application/json'}})
+
+			let body = { username : username }
+
+			fetch('/api/auth/checkUsernameDuplication', {method : 'post', body : JSON.stringify(body), headers : {'Content-Type' : 'application/json'}})
 			.then((res)=>res.text())
 			.then((text)=>{
-				if(text === 'false')
+				console.log(text)
+				if(text === 'false'){
 					$('#username-alert').text('사용 가능한 username 입니다.')
-				else
+				}else{
 					$('#username-alert').text('사용 불가능한 username 입니다.')
+				}
 			})
 		}
 		
 		const handleSubmit = (e, f)=>{
 			e.preventDefault();
+		
 			let body = {
 					username : f.username.value,
 					password : f.password.value
 			}
-			fetch('/auth/createUser', {method : "post", body : JSON.stringify(body), headers : {'Content-Type' : 'application/json'}})
+			fetch('/api/auth/createUser', {method : "post", body : JSON.stringify(body), headers : {'Content-Type' : 'application/json'}})
 			.then((res)=>res.text())
 			.then((text)=>{
 				switch(text){

@@ -2,7 +2,7 @@ const handleDelete = () => {
 	if(!confirm('정말 삭제 하시겠습니까?'))
 		return;
 	
-	fetch(`/api/post/${post_id}`, { method: 'delete' })
+	fetch(`/api/post/${postId}`, { method: 'delete' })
 		.then(res => res.text())
 		.then(text => {
 			if(text === 'success'){
@@ -17,5 +17,5 @@ const handleDelete = () => {
 }
 
 const handleUpdateForm = ()=>{
-	location.href=`/posts/${post_id}/update`
+	location.href=`/posts/${postId}/update`
 }

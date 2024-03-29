@@ -2,7 +2,7 @@ const handleSubmit = (e, f) => {
 	e.preventDefault();
 	
 	let body = {
-		post_id,
+		postId,
 		title: f.title.value,
 		content: f.content.value,
 	}
@@ -15,7 +15,7 @@ const handleSubmit = (e, f) => {
 				return;
 			}
 
-			location.href = `/posts/${post_id}`
+			location.href = `/posts/${postId}`
 		})
 }
 

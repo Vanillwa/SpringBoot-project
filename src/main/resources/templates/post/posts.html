@@ -19,21 +19,31 @@
 				</tr>
 			</thead>
 			<tbody>
-				<th:block th:if="${postList.size} == 0">
+				<th:block th:if="${paging.isEmpty} == 0">
 					<tr>
 						<td colspan="4">작성된 게시글이 없습니다.</td>
 					</tr>
 				</th:block>
-				<th:block th:each="post : ${postList}">
+				<th:block th:each="post : ${paging}">
 					<tr>
-						<td class="post_id" th:text="${post.post_id}" th:onclick="location.href='/posts/'+[[${post.post_id}]]"></td>
-						<td class="post_title" th:text="${post.title}" th:onclick="location.href='/posts/'+[[${post.post_id}]]"></td>
+						<td class="postId" th:text="${post.postId}" th:onclick="location.href='/posts/'+[[${post.postId}]]"></td>
+						<td class="post_title" th:text="${post.title}" th:onclick="location.href='/posts/'+[[${post.postId}]]"></td>
 						<td th:text="${post.user.username}"></td>
 						<td th:text="${#temporals.format(post.createdAt, 'MM-dd HH:mm')}"></td>
 					</tr>
 				</th:block>
 			</tbody>
 		</table>
+		<div th:if="${!paging.isEmpty()}">
+			<ul class="pagination justify-content-center">
+				<li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'"><a class="page-link" th:href="@{|?page=${paging.number}|}"> <span>이전</span>
+				</a></li>
+				<li th:each="page: ${#numbers.sequence(startPage, lastPage)}" th:classappend="${page-1 == paging.number} ? 'active'"
+					class="page-item"><a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a></li>
+				<li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'"><a class="page-link" th:href="@{|?page=${paging.number+2}|}"> <span>다음</span>
+				</a></li>
+			</ul>
+		</div>
 	</section>
 </div>
 </html>

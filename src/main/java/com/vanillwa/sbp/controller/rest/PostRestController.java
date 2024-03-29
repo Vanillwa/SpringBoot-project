@@ -22,38 +22,38 @@ import com.vanillwa.sbp.service.PostService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping("/api/post")
 @RequiredArgsConstructor
 public class PostRestController {
 
 	private final PostService postService;
 	private final PostRepository postRepository;
 
-	@PostMapping("/post")
+	@PostMapping("")
 	public ResponseEntity<String> createPost(@RequestBody PostDTO postDTO,
 			@AuthenticationPrincipal UserPrincipalDetails user) {
-		postDTO.setUser_id(user.getUser().getUser_id());
+		postDTO.setUserId(user.getUser().getUserId());
 		Post post = postService.createPost(postDTO);
-		return ResponseEntity.ok(post.getPost_id().toString());
+		return ResponseEntity.ok(post.getPostId().toString());
 	}
 
-	@DeleteMapping("/post/{post_id}")
-	public ResponseEntity<String> deletePost(@PathVariable(name = "post_id") Long post_id,
+	@DeleteMapping("/{postId}")
+	public ResponseEntity<String> deletePost(@PathVariable(name = "postId") Long postId,
 			@AuthenticationPrincipal UserPrincipalDetails user) {
-		Optional<Post> post = postRepository.findById(post_id);
+		Optional<Post> post = postRepository.findById(postId);
 		if (!post.isPresent())
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("NoExist");
 
 		if (user.getUser().getRole().equals("ADMIN")
-				|| post.get().getUser().getUser_id() == user.getUser().getUser_id()) {
-			postService.deletePost(post_id);
+				|| post.get().getUser().getUserId() == user.getUser().getUserId()) {
+			postService.deletePost(postId);
 			return ResponseEntity.ok("success");
 		} else {
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).body("NoAuth");
 		}
 	}
 
-	@PutMapping("/post")
+	@PutMapping("")
 	public ResponseEntity<String> updatePost(@RequestBody PostDTO postDTO,
 			@AuthenticationPrincipal UserPrincipalDetails user) {
 		Post post = postService.updatePost(postDTO);

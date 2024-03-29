@@ -12,11 +12,11 @@
 
 .table {
 	border-top: 1px solid var(--border-color-table);
-	background-color: var(--bg-color-table);
 }
 
 .table tr {
 	border-color: var(--border-color-table);
+	background-color: var(--bg-color-table);
 }
 
 .table tbody tr:hover {
@@ -36,3 +36,15 @@
 .table .post_title {
 	text-align: left;
 }
+
+.pagination .page-item .page-link{
+	transition:none;	
+	background-color: var(--bg-color-paging);
+	color:var(--font-color);
+	border-color: var(--border-color-table);
+}
+
+.pagination .page-item.active .page-link{
+	background-color: var(--bg-color-paging-hover);
+}
+

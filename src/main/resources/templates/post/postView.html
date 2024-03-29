@@ -26,7 +26,7 @@
 						<th:block th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></th:block>
 					</div>
 				</div>
-				<th:block th:if="${user != null && (user.user_id == post.user.user_id || user.role == 'ADMIN')}">
+				<th:block th:if="${user != null && (user.userId == post.user.userId || user.role == 'ADMIN')}">
 					<div class="btn-wrapper">
 						<button type="button" class="btn btn-danger btn-sm" onclick="handleDelete()">삭제하기</button>
 						<button type="button" class="btn btn-secondary btn-sm" onclick="handleUpdateForm()">수정하기</button>
@@ -39,7 +39,7 @@
 		</th:block>
 	</section>
 	<script th:inline="javascript">
-		const post_id = [[${post.post_id}]];
+		const postId = [[${post.postId}]];
 	</script>
 </div>
 </html>

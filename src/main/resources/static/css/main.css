@@ -1,14 +1,21 @@
+body{
+	--bs-emphasis-color-rgb : none;
+}
+
 body[class='light'] {
-	--bg-color-body: white;
+	--bg-color-body: #fff;
 	--bg-color-container: whitesmoke;
 	--bg-color-table: whitesmoke;
-	--bg-color-table-hover: #fff;
+	--bg-color-table-hover: #eee;
 	--bg-color-input: white;
+	--bg-color-paging : #eee;
+	--bg-color-paging-hover: #ddd;
 	--font-color: black;
 	--font-color-sub : gray;
 	--font-color-placeholder: gray;
-	--border-color-table: lightgray;
+	--border-color-table: #ddd;
 	--border-color-container : lightgray;
+	
 }
 
 body[class='dark'] {
@@ -17,17 +24,22 @@ body[class='dark'] {
 	--bg-color-table: #222;
 	--bg-color-table-hover : #333;
 	--bg-color-input: #555;
-	--font-color: white;
+	--bg-color-paging : #333;
+	--bg-color-paging-hover : #555;
+	--font-color: whitesmoke;
 	--font-color-sub : gray;
 	--font-color-placeholder: lightgray;
 	--border-color-table: #555;
 	--border-color-container : #444;
 }
 
+*{margin:0; padding:0 ; box-sizing: border-box;}
 body {
 	background-color: var(--bg-color-body);
 	color: var(--font-color)
 }
+a{text-decoration: none; color: var(--font-color);}
+ol,ul,li{list-style: none;}
 
 .main-container {
 	max-width: 1000px;

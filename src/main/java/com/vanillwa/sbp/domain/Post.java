@@ -31,7 +31,7 @@ public class Post {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(nullable = false, updatable = false)
-	private Long post_id;
+	private Long postId;
 	
 	@Column(nullable = false)
 	private String title;
@@ -48,10 +48,10 @@ public class Post {
 	private LocalDateTime updatedAt;
 	
 	@ManyToOne
-	@JoinColumn(name = "user_id", referencedColumnName = "user_id", updatable = false)
+	@JoinColumn(name = "user_id", referencedColumnName = "userId", updatable = false)
 	private User user = new User();
 	
-	public void setUserId(Long user_id) {
-		user.setUser_id(user_id);
+	public void setUserId(Long userId) {
+		user.setUserId(userId);
 	}
 }

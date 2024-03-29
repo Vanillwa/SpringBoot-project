@@ -14,8 +14,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class HomeController {
 	
-	private final HttpSession session;
-	
 	@GetMapping(value = {"/", ""})
 	public String index(Model model, @AuthenticationPrincipal UserPrincipalDetails user) {	
 		if(user != null)
