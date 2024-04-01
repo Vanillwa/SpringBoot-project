@@ -8,5 +8,6 @@ import com.vanillwa.sbp.domain.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 	User findByUsername(String username);
-	Boolean existsByUsername(String username);
+	boolean existsByUsername(String username);
+	boolean existsByNickname(String nickname);
 }

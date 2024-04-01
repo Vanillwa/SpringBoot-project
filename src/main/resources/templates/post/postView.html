@@ -13,13 +13,11 @@
 				<div class="title">
 					<th:block th:text="${post.title}"></th:block>
 				</div>
-				<div class="content">
-					<th:block th:utext="${post.content}"></th:block>
-				</div>
+				<div class="content" th:utext="${post.content}"></div>
 				<div class="info">
 					<div class="writer">
 						작성자 :
-						<th:block th:text="${post.user.username}"></th:block>
+						<th:block th:text="${post.user.nickname}"></th:block>
 					</div>
 					<div class="createdAt">
 						작성일 :

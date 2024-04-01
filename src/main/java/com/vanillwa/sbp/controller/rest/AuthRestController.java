@@ -19,42 +19,60 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/api/auth")
 public class AuthRestController {
-	
-	private final UserRepository userRepository;
+
 	private final UserService userService;
 	private final HttpSession session;
-	
+
 	@GetMapping("/usernameOnchange")
 	public ResponseEntity<String> usernameOnchange() {
-		session.removeAttribute("checkUsernameDuplication");
+		session.removeAttribute("isDuplicateUsername");
 		return ResponseEntity.ok("ok");
 	}
-	
+
 	// username 중복 체크
-	@ResponseBody
 	@PostMapping("/checkUsernameDuplication")
 	public ResponseEntity<Boolean> checkUsernameDuplication(@RequestBody UserDTO userDTO) {
-		boolean check = userService.checkUsernameDuplication(userDTO.getUsername());
-		session.setAttribute("checkUsernameDuplication", check);
+		boolean check = userService.isDuplicateUsername(userDTO.getUsername());
+		session.setAttribute("isDuplicateUsername", check);
+		return ResponseEntity.ok(check);
+	}
+
+	@GetMapping("/nicknameOnchange")
+	public ResponseEntity<String> nicknameOnchange() {
+		session.removeAttribute("isDuplicateNickname");
+		return ResponseEntity.ok("ok");
+	}
+
+	// nickname 중복 체크
+	@PostMapping("/checkNicknameDuplication")
+	public ResponseEntity<Boolean> checkNicknameDuplication(@RequestBody UserDTO userDTO) {
+		boolean check = userService.isDuplicateNickname(userDTO.getNickname());
+		session.setAttribute("isDuplicateNickname", check);
 		return ResponseEntity.ok(check);
 	}
 
 	// 회원 가입
 	@PostMapping("/createUser")
 	public ResponseEntity<String> createUser(@RequestBody UserDTO userDTO) {
-		if (session.getAttribute("checkUsernameDuplication") == null) {
-			session.removeAttribute("checkUsernameDuplication");
-			return ResponseEntity.ok("unChecked");
-		}
+		if (session.getAttribute("isDuplicateUsername") == null)
+			return ResponseEntity.ok("unCheckedUsername");
+		
+		if (session.getAttribute("isDuplicateNickname") == null)
+			return ResponseEntity.ok("unCheckedNickname");
 
-		if (userService.checkUsernameDuplication(userDTO.getUsername())) {
-			session.removeAttribute("checkUsernameDuplication");
-			return ResponseEntity.ok("duplicated");
+		if (userService.isDuplicateUsername(userDTO.getUsername())) {
+			session.removeAttribute("isDuplicateUsername");
+			return ResponseEntity.ok("duplicatedUsername");
+		}
+		
+		if (userService.isDuplicateNickname(userDTO.getNickname())) {
+			session.removeAttribute("isDuplicateNickname");
+			return ResponseEntity.ok("duplicatedNickname");
 		}
 
 		userService.createUser(userDTO);
 
-		session.removeAttribute("checkUsernameDuplication");
+		session.removeAttribute("isDuplicateUsername");
 		return ResponseEntity.ok("success");
 	}
 }

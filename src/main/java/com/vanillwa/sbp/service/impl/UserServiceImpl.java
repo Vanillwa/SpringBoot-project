@@ -19,19 +19,24 @@ public class UserServiceImpl implements UserService {
 	final UserRepository userRepository;
 
 	@Override
-	public boolean checkUsernameDuplication(String username) {
-		boolean usernameDuplicate = userRepository.existsByUsername(username);
-		return usernameDuplicate;
+	public boolean isDuplicateUsername(String username) {
+		return userRepository.existsByUsername(username);
+	}
+
+	@Override
+	public boolean isDuplicateNickname(String nickname) {
+		return userRepository.existsByNickname(nickname);
 	}
 
 	@Override
 	public void createUser(UserDTO userDTO) {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		
+
 		User user = new User();
 		user.setUsername(userDTO.getUsername());
+		user.setNickname(userDTO.getNickname());
 		user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-		
+
 		userRepository.save(user);
 	}
 

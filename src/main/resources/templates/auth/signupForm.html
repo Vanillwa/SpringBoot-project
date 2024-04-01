@@ -6,9 +6,14 @@
 	<form onsubmit="handleSubmit(event, this)">
 		<div>
 			<label for="username">UserName</label> <input type="text" name="username" id="username" required onchange="handleUsernameOnchange()">
-			<button type="button" onclick="handleCheckDuplication()">중복 체크</button>
+			<button type="button" onclick="handleCheckUsernameDuplication()">중복 체크</button>
 		</div>
 		<div id="username-alert"></div>
+		<div>
+			<label for="nickname">Nickname</label> <input type="text" name="nickname" id="nickname" required onchange="handleNicknameOnchange()">
+			<button type="button" onclick="handleCheckNicknameDuplication()">중복 체크</button>
+		</div>
+		<div id="nickname-alert"></div>
 		<div>
 			<label for="password">Password</label> <input type="password" name="password" id="password" required autocomplete="none">
 		</div>
@@ -22,8 +27,14 @@
 			$('#username-alert').text('');
 			fetch('/api/auth/usernameOnchange',{method : "get"})
 		}
-	
-		const handleCheckDuplication = () =>{
+		
+		const handleNicknameOnchange = ()=>{
+			$('#nickname-alert').text('');
+			fetch('/api/auth/nicknameOnchange',{method : "get"})
+		}
+		
+		// username 중복체크
+		const handleCheckUsernameDuplication = () =>{
 			let username = $('#username').val()
 			if(username == ''){
 				$('#username-alert').text('username이 비어있습니다.')
@@ -44,11 +55,34 @@
 			})
 		}
 		
+		// nickname 중복체크
+		const handleCheckNicknameDuplication = ()=>{
+			let nickname = $('#nickname').val()
+			if(nickname == ''){
+				$('#nickname-alert').text('nickname이 비어있습니다.')
+				return
+			}
+
+			let body = { nickname : nickname }
+
+			fetch('/api/auth/checkNicknameDuplication', {method : 'post', body : JSON.stringify(body), headers : {'Content-Type' : 'application/json'}})
+			.then((res)=>res.text())
+			.then((text)=>{
+				console.log(text)
+				if(text === 'false'){
+					$('#nickname-alert').text('사용 가능한 nickname 입니다.')
+				}else{
+					$('#nickname-alert').text('사용 불가능한 nickname 입니다.')
+				}
+			})
+		}
+		
 		const handleSubmit = (e, f)=>{
 			e.preventDefault();
 		
 			let body = {
 					username : f.username.value,
+					nickname : f.nickname.value,
 					password : f.password.value
 			}
 			fetch('/api/auth/createUser', {method : "post", body : JSON.stringify(body), headers : {'Content-Type' : 'application/json'}})
@@ -59,11 +93,17 @@
 					alert('회원가입에 성공했습니다.')
 					location.href='/login/loginForm';
 					break;
-				case 'duplicated' :
+				case 'duplicatedUsername' :
 					alert('이미 사용중인 username 입니다.')
 					break;
-				case 'unChecked' :
+				case 'unCheckedUsername' :
 					alert('username 중복체크를 해주세요.')
+					break;
+				case 'duplicatedNickname' :
+					alert('이미 사용중인 nickname 입니다.')
+					break;
+				case 'unCheckedNickname' :
+					alert('nickname 중복체크를 해주세요.')
 					break;
 				default :
 					alert('알수없는 에러 발생');
