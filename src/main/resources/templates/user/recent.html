@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default_layout}">
+
+<div layout:fragment="content" class="pt-4">
+	<h3 th:if="${userData != null}">
+		<span th:text="${userData.nickname}"></span>님의 최근 글
+	</h3>
+	<div class="d-flex flex-column gap-1 p-2">
+		<th:block th:each="post : ${postList}">
+			<div class="d-flex" th:onclick="location.href='/posts/'+[[${post.postId}]]">
+				<div class="col-6" th:text="${post.title}"></div>
+				<div class="col-6 text-center" th:text="${#temporals.format(post.createdAt, 'yy-MM-dd HH:mm:ss')}"></div>
+			</div>
+		</th:block>
+	</div>
+	<th:block th:if="${postList.isEmpty}">
+		<div>작성글이 없읍니다.</div>
+	</th:block>
+</div>
+</html>

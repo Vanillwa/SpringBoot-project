@@ -20,6 +20,4 @@ public class AuthController {
 	public String signupForm() {
 		return "/auth/signupForm";
 	}
-	
-	
 }

@@ -28,7 +28,7 @@
 					<tr>
 						<td class="postId" th:text="${post.postId}" th:onclick="location.href='/posts/'+[[${post.postId}]]"></td>
 						<td class="post_title" th:text="${post.title}" th:onclick="location.href='/posts/'+[[${post.postId}]]"></td>
-						<td th:text="${post.user.nickname}"></td>
+						<td><a th:text="${post.user.nickname}" th:href="@{/user/{id}(id=${post.user.userId})}"></a></td>
 						<td th:text="${#temporals.format(post.createdAt, 'MM-dd HH:mm')}"></td>
 					</tr>
 				</th:block>

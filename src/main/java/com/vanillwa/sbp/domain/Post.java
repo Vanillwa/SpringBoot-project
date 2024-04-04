@@ -48,7 +48,7 @@ public class Post {
 	private LocalDateTime updatedAt;
 	
 	@ManyToOne
-	@JoinColumn(name = "user_id", referencedColumnName = "userId", updatable = false)
+	@JoinColumn(name = "userId", referencedColumnName = "userId", updatable = false)
 	private User user = new User();
 	
 	public void setUserId(Long userId) {

@@ -1,5 +1,7 @@
 package com.vanillwa.sbp.service.impl;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -53,6 +55,12 @@ public class PostServiceImpl implements PostService {
 		
 		Page<Post> list = postRepository.findAll(pageable);
 		
+		return list;
+	}
+
+	@Override
+	public List<Post> findAllByUser_UserId(Long userId) {
+		List<Post> list = postRepository.findAllByUser_UserId(userId);
 		return list;
 	}
 }

@@ -1,5 +1,7 @@
 package com.vanillwa.sbp.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 
 import com.vanillwa.sbp.domain.Post;
@@ -10,4 +12,5 @@ public interface PostService {
 	public void deletePost(Long post_id);
 	public Post updatePost(PostDTO postDTO);
 	public Page<Post> getPosts(int page, int pageSize);
+	public List<Post> findAllByUser_UserId(Long userId);
 }

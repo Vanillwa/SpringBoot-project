@@ -21,10 +21,5 @@ public class HomeController {
 		return "index";
 	}
 	
-	@GetMapping("/user/myPage")
-	public String userPage(Model model, @AuthenticationPrincipal UserPrincipalDetails user ) {
-		if(user != null)
-			model.addAttribute("user", user.getUser());
-		return "/user/myPage";
-	}
+	
 }

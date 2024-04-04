@@ -9,16 +9,23 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNavDropdown">
 				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="/posts">Posts</a></li>
-					<li class="nav-item" th:if="${user == null}"><a class="nav-link" href="/auth/login">Login</a></li>
-					<li class="nav-item" th:if="${user == null}"><a class="nav-link" href="/auth/signup">Signup</a></li>
-					<li class="nav-item" th:if="${user != null}"><a class="nav-link" href="/user/myPage">Mypage</a></li>
-					<li class="nav-item" th:if="${user != null}"><a class="nav-link" href="/auth/logout">Logout</a></li>
+					<li class="nav-item"><a class="nav-link" href="/">메인</a></li>
+					<li class="nav-item"><a class="nav-link" href="/posts">게시판</a></li>
+					<li class="nav-item" th:if="${user == null}"><a class="nav-link" href="/auth/login">로그인</a></li>
+					<li class="nav-item" th:if="${user == null}"><a class="nav-link" href="/auth/signup">회원가입</a></li>
 				</ul>
-				<div class="form-check form-switch">
-					<label class="form-check-label" for="flexSwitchCheckDefault"><i class="bi" id="toggle-icon"></i></label> 
-					<input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+				<div class="d-flex justify-content-end">
+					<div class="dropdown" th:if="${user != null}">
+						<button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="${user.nickname}"></button>
+						<ul class="dropdown-menu">
+							<li><a class="dropdown-item" th:href="@{/user/{userId}(userId = ${user.userId})}">작성글 목록</a></li>
+							<li><a class="dropdown-item" href="/user/mypage">회원정보 수정</a></li>
+							<li><a class="dropdown-item" href="/auth/logout">로그아웃</a></li>
+						</ul>
+					</div>
+					<div class="form-check form-switch">
+						<label class="form-check-label" for="flexSwitchCheckDefault"><i class="bi" id="toggle-icon"></i></label> <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+					</div>
 				</div>
 			</div>
 		</div>
