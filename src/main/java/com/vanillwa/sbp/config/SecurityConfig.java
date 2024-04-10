@@ -31,7 +31,7 @@ public class SecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf((csrf) -> csrf.disable()).headers((headers) -> headers.frameOptions((options) -> options.disable()))
 				.authorizeHttpRequests(
-						(request) -> request.requestMatchers("/posts/create").authenticated().requestMatchers("/static/**","/css/**", "/images/**", "/js/**", "/auth/**", "/", "/posts/**", "/error", "/api/**", "/user/**")
+						(request) -> request.requestMatchers("/post/create").authenticated().requestMatchers("/static/**","/css/**", "/images/**", "/js/**", "/auth/**", "/", "/post/**", "/error", "/api/**", "/user/**")
 								.permitAll().anyRequest().authenticated())
 				.formLogin((formLogin) -> formLogin.loginPage("/auth/login").usernameParameter("username")
 						.passwordParameter("password").loginProcessingUrl("/auth/login-proc")

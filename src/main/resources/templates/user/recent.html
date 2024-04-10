@@ -7,7 +7,7 @@
 	</h3>
 	<div class="d-flex flex-column gap-1 p-2">
 		<th:block th:each="post : ${postList}">
-			<div class="d-flex" th:onclick="location.href='/posts/'+[[${post.postId}]]">
+			<div class="d-flex" th:onclick="location.href='/post/list/'+[[${post.postId}]]">
 				<div class="col-6" th:text="${post.title}"></div>
 				<div class="col-6 text-center" th:text="${#temporals.format(post.createdAt, 'yy-MM-dd HH:mm:ss')}"></div>
 			</div>

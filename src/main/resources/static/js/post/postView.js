@@ -7,7 +7,7 @@ const handleDelete = () => {
 		.then(text => {
 			if(text === 'success'){
 				alert('삭제되었습니다.')
-				location.href="/posts"
+				location.href="/post/list"
 			}else if(text ==='NoExist'){
 				alert('글이 존재하지 않습니다')
 			}else if(text ==='NoAuth'){
@@ -17,5 +17,5 @@ const handleDelete = () => {
 }
 
 const handleUpdateForm = ()=>{
-	location.href=`/posts/${postId}/update`
+	location.href=`/post/list/${postId}/update`
 }

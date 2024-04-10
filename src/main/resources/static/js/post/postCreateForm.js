@@ -13,8 +13,7 @@ const handleSubmit = (e, f) => {
 				alert('오류 발생');
 				return;
 			}
-
-			location.href = '/posts'
+			location.href = `/post/list/${text}`
 		})
 }
 

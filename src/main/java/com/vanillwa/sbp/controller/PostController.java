@@ -20,30 +20,36 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping(value = "/posts")
+@RequestMapping(value = "/post")
 public class PostController {
 
 	private final PostService postService;
 	private final PostRepository postRepository;
 
-	@GetMapping(value = { "/", "" })
+	@GetMapping(value = { "/list"})
 	public String index(Model model, @AuthenticationPrincipal UserPrincipalDetails user,
 			@RequestParam(required = false, defaultValue = "1", name = "page") int page) {
 		
-		Page<Post> paging = postService.getPosts(page-1, 15);
+		Page<Post> paging = postService.getPosts(page-1, 10);
 		
 		int startPage, lastPage, totalPage = paging.getTotalPages();
 		
-		if(page < 3) {
+		if(totalPage <= 5) {
 			startPage = 1;
-			lastPage = 5;
-		}else if(page > totalPage-2) {
-			startPage = totalPage-4;
 			lastPage = totalPage;
 		}else {
-			startPage = page-2;
-			lastPage = page+2;
+			if(page < 3) {
+				startPage = 1;
+				lastPage = 5;
+			}else if(page > totalPage-2) {
+				startPage = totalPage-4;
+				lastPage = totalPage;
+			}else {
+				startPage = page-2;
+				lastPage = page+2;
+			}
 		}
+		
 		
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("lastPage", lastPage);
@@ -51,7 +57,7 @@ public class PostController {
 
 		if (user != null)
 			model.addAttribute("user", user.getUser());
-		return "/post/posts";
+		return "/post/postList";
 	}
 
 	@GetMapping("/create")
@@ -61,7 +67,7 @@ public class PostController {
 		return "/post/postCreateForm";
 	}
 
-	@GetMapping("/{postId}")
+	@GetMapping("/list/{postId}")
 	public String postView(Model model, @PathVariable(name = "postId") Long postId,
 			@AuthenticationPrincipal UserPrincipalDetails user) {
 		Optional<Post> post = postRepository.findById(postId);
@@ -73,7 +79,7 @@ public class PostController {
 		return "/post/postView";
 	}
 
-	@GetMapping("/{postId}/update")
+	@GetMapping("/list/{postId}/update")
 	public String postUpdateForm(Model model, @PathVariable(name = "postId") Long postId,
 			@AuthenticationPrincipal UserPrincipalDetails user) {
 		Optional<Post> post = postRepository.findById(postId);
