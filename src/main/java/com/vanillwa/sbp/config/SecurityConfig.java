@@ -27,18 +27,20 @@ public class SecurityConfig {
 	final UserAuthSuccessHandler userAuthSuccessHandler;
 	final UserAuthFailureHandler userAuthFailureHandler;
 	final UserAccessDeniedHandler userAccessDeniedHandler;
+
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf((csrf) -> csrf.disable()).headers((headers) -> headers.frameOptions((options) -> options.disable()))
-				.authorizeHttpRequests(
-						(request) -> request.requestMatchers("/post/create").authenticated().requestMatchers("/static/**","/css/**", "/images/**", "/js/**", "/auth/**", "/", "/post/**", "/error", "/api/**", "/user/**")
-								.permitAll().anyRequest().authenticated())
+				.authorizeHttpRequests((request) -> request.requestMatchers("/post/create", "/post/list/{postId}/update", "/user/mypage").authenticated()
+						.requestMatchers("/static/**", "/css/**", "/images/**", "/js/**", "/auth/**", "/", "/post/list",
+								"/error", "/api/**", "/user/**")
+						.permitAll().anyRequest().authenticated())
 				.formLogin((formLogin) -> formLogin.loginPage("/auth/login").usernameParameter("username")
 						.passwordParameter("password").loginProcessingUrl("/auth/login-proc")
 						.successHandler(userAuthSuccessHandler).failureHandler(userAuthFailureHandler).permitAll())
 				.logout((logout) -> logout.logoutUrl("/auth/logout").logoutSuccessUrl("/").deleteCookies("JSESSIONID"))
 				.userDetailsService(userPrincipalDetailsService)
-				.exceptionHandling(exception->exception.accessDeniedHandler(userAccessDeniedHandler));
+				.exceptionHandling(exception -> exception.accessDeniedHandler(userAccessDeniedHandler));
 
 		return http.build();
 	}

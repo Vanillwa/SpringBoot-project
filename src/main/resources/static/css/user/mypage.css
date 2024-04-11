@@ -1,1 +1,5 @@
 .inner{max-width: 500px; margin:0 auto;}
+
+.input-wrapper{width:100%; display: flex; align-items: center;}
+.input-wrapper > label{padding:5px 7px;}
+.input-wrapper > input{width: 50%;}

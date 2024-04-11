@@ -6,13 +6,14 @@
 <div layout:fragment="content" class="inner pt-4 pb-4">
 	<h3 class="text-center pb-2">회원정보 수정</h3>
 	<form class="d-flex flex-column gap-4 align-items-center">
-		<div>
-			<label for="username">Username</label> <input type="text" name="username" id="username" th:value="${user.username}" disabled="disabled"/>
+		<div class="input-wrapper">
+			<label for="username" class="">Username</label> <input class="" name="username" id="username" th:value="${user.username}" disabled="disabled" />
 		</div>
-		<div>
+		<div class="input-wrapper">
 			<label for="nickname">Nickname</label> <input type="text" name="nickname" id="nickname" th:value="${user.nickname}" />
+			<button type="button" class="btn btn-secondary btn-sm">중복체크</button>
 		</div>
-		<div>
+		<div class="input-wrapper">
 			<label for="password">Password</label> <input type="password" name="password" id="password" autocomplete=none />
 		</div>
 		<button type="submit" class="btn btn-secondary">저장</button>
